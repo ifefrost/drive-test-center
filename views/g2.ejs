@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layouts/head.ejs'); -%>
+  <body>
+    <%- include('layouts/nav.ejs'); -%>
+
+    <div class="jumbotron jumbotron-fluid mt-5 bg-dark text-white text-center">
+        <div class="container">
+          <h1>G2 tests</h1>
+          <p class="lead">Book your G2 Test here</p>
+        </div>
+    </div>
+    <div class="container px-4 px-lg-5">
+      <% if(data.firstname == 'default'){  %>
+      <div class="row justify-content-center">
+        <form method="POST" action="/submit/newtest" class="col-md-10 col-lg-8 col-xl-7">
+          <h4>Personal Information</h4>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="first_name">First Name</label>
+              <input type="text" class="form-control" id="first_name" name="firstname" placeholder="First Name" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="last_name">Last Name</label>
+              <input type="text" class="form-control" id="last_name"
+                name="lastname" placeholder="Last Name" required>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="license">License Number</label>
+              <input type="text" class="form-control" id="license" name="licenseNo" placeholder="License Number" required>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="dob">Date Of Birth</label>
+              <input type="date" class="form-control" id="dob" name="dob" placeholder="MM/DD/YYYY" required>
+            </div>
+          </div>
+          <h4>Car Information</h4>
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="make">Make</label>
+              <input type="text" class="form-control" id="make" name="make" placeholder="Make" required>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="model">Model</label>
+              <input type="text" class="form-control" id="model" name="model" placeholder="model" required>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="year">Year</label>
+              <input type="number" class="form-control" id="year" name="year" placeholder="year" required>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="plate">Plate no</label>
+              <input type="text" class="form-control" id="plate" name="plateNo" placeholder="Plate No" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <% } else { %>
+      <div class="row justify-content-center mt-5">
+        <div class="col-md-4">
+          <h4>Personal Information</h4>
+          <div class="row my-2">
+            <strong>First Name:</strong>
+            <span class="display"><%= data.firstname %></span>
+          </div>
+          <div class="row my-2">
+            <strong>Last Name:</strong>
+            <span class="display"><%= data.lastname %></span>
+          </div>
+          <div class="row my-2">
+            <strong>License Number:</strong>
+            <span class="display"><%= data.licenseNo %></span>
+          </div>
+          <div class="row my-2">
+            <strong>Date Of Birth:</strong>
+            <span class="display" id="date"><%= data.dob %></span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h4>Car Information</h4>
+          <div class="row my-2">
+            <strong>Make:</strong>
+            <span class="display"><%= data.car_details.make %></span>
+          </div>
+          <div class="row my-2">
+            <strong>Model:</strong>
+            <span class="display"><%= data.car_details.model %></span>
+          </div>
+          <div class="row my-2">
+            <strong>Year:</strong>
+            <span class="display"><%= data.car_details.year %></span>
+          </div>
+          <div class="row my-2">
+            <strong>Plate no:</strong>
+            <span class="display"><%= data.car_details.plateNo %></span>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center mt-5">
+        <form method="POST" action="/findtimeslot" class="col-md-8">
+          <h4>Appointment Information</h4>
+          <% if(data.appointmentId){ %>
+            <div>
+              <h5 class="text-danger">Appointment already booked for <%=appointmentData.date%> at <%=appointmentData.time%> </h5>
+            </div>
+            <% } else { %>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="date">Date</label>
+              <input type="date" class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Search for time slot</button>
+        </form>
+      </div>
+      <% if(timeSlots){ %>
+        <% if(timeSlots.length > 0){ %>
+          <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <h4>Appointment slots on <%= timeSlots[0].date %></h4>
+                <div class="col-md-4">
+                  <form action="/savetimeslot" method="POST">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Time</th>
+                        <th>Pick time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% timeSlots.forEach((timeSlot)=>{ %>
+                        <tr>
+                          <% if (timeSlot.slotAvailable == true){ %>
+                          <td><%= timeSlot.time %></td>
+                          <td><input type="radio" name="time" value=<%= timeSlot.time %>></td>
+                          <% } %>
+                        </tr>
+                      <% }) %>
+                    </tbody>
+                  </table>
+                  <button type="submit" class="btn btn-primary">Save Time Slot</button>
+                </form>
+                </div>
+            </div>
+          </div>
+          <% } else { %>
+          <div class="row justify-content-center mt-5">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+              <h4>No Appointment Slots Available</h4>
+            </div>
+          </div>
+          <% } %>
+        <% } %>
+      <% } %>
+      <% } %>
+    </div>
+
+    <%- include('layouts/footer.ejs'); -%>
+    <%- include('layouts/scripts.ejs'); -%>
+  </body>
+</html>

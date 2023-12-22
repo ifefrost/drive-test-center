@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('layouts/head.ejs'); -%>
+<body>
+    <%- include('layouts/nav.ejs'); -%>
+
+    <div class="jumbotron jumbotron-fluid bg-dark text-white text-center">
+        <div class="container">
+          <h1>Appointments</h1>
+          <p class="lead">Set your appointment times</p>
+        </div>
+    </div>
+    <div class="container px-4 px-lg-5">
+      <div class="row justify-content-center">
+        <form method="POST" action="/bookappoint" class="col-md-10 col-lg-8 col-xl-7">
+          <h4>Select Appointment Date and Time</h4>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="appointDate">Date</label>
+              <input type="date" class="form-control" id="appointDate" name="date" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="appointTime">Time</label>
+              <select name="time" class="form-control" id="appointTime">
+                <option value="12:00">12:00</option>
+                <option value="12:30">12:30</option>
+                <option value="13:00">13:00</option>
+                <option value="13:30">13:30</option>
+                <option value="14:00">14:00</option>
+                <option value="14:30">14:30</option>
+                <option value="15:00">15:00</option>
+                <option value="15:30">15:30</option>
+                <option value="16:00">16:00</option>
+                <option value="16:30">16:30</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" id="appointSubmit" class="btn btn-primary btn-block">Add appointment</button>
+        </form>
+      </div>
+      <div class="row justify-content-center mt-5">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <h4>Admin Created Appointments</h4>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% appointments.forEach(function(appointment) { %>
+                  <tr>
+                    <td><%= appointment.date %></td>
+                    <td><%= appointment.time %></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include('layouts/footer.ejs'); -%>
+    <%- include('layouts/scripts.ejs'); -%>
+</body>
+</html>

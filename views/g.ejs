@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('layouts/head.ejs'); -%>
+<body>
+    <%- include('layouts/nav.ejs'); -%>
+    
+    <div class="jumbotron jumbotron-fluid mt-5 bg-dark text-white text-center">
+        <div class="container">
+          <h1>G Tests</h1>
+          <p class="lead"> Book your G Test here</p>
+        </div>
+    </div>
+    <div class="container px-5 px-lg-5">
+      <!-- <div class="row justify-content-center">
+        <form class="col-md-10 col-lg-8 col-xl-7" method="POST" action="/search">
+          <div class="form-row">
+            <div class="form-group col-md">
+              <label for="license">Enter your License No.</label>
+              <input type="text" class="form-control" id="license" name="licenseNo" placeholder="License Number">
+            </div>
+          </div>
+          <div class="">
+            <button type="submit" class="btn btn-primary" id="userSearch">Search</button>
+          </div>
+        </form>
+      </div> -->  
+      <div class="row justify-content-center mt-5">
+        <div class="col-md-4">
+          <h4>Personal Information</h4>
+          <div class="row my-2">
+            <strong>First Name:</strong>
+            <span class="display"><%= data.firstname %></span>
+          </div>
+          <div class="row my-2">
+            <strong>Last Name:</strong>
+            <span class="display"><%= data.lastname %></span>
+          </div>
+          <div class="row my-2">
+            <strong>License Number:</strong>
+            <span class="display"><%= data.licenseNo %></span>
+          </div>
+          <div class="row my-2">
+            <strong>Date Of Birth:</strong>
+            <span class="display" id="date"><%= data.dob %></span>
+          </div>
+          </div>
+          <div class="col-md-4">
+          <h4>Car Information</h4>
+          <div class="row my-2">
+            <strong>Make:</strong>
+            <span class="display"><%= data.car_details.make %></span>
+          </div>
+          <div class="row my-2">
+            <strong>Model:</strong>
+            <span class="display"><%= data.car_details.model %></span>
+          </div>
+          <div class="row my-2">
+            <strong>Year:</strong>
+            <span class="display"><%= data.car_details.year %></span>
+          </div>
+          <div class="row my-2">
+            <strong>Plate no:</strong>
+            <span class="display"><%= data.car_details.plateNo %></span>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center mt-2">
+        <div class="col-md-8">
+          <% if(data.firstname == 'default') { %>
+          <a type="button" class="btn btn-primary mt-1" href="/g2">Go to G2</a>
+          <% } else { %>
+          <button type="submit" class="btn btn-primary mt-1" id="editUser">Edit Car Info</button>
+          <% } %>
+        </div>
+      </div>
+      <div class="hidden" id="editCarDetails">
+        <form method="POST" action="/editcarinfo">
+          <div class="row justify-content-center mt-3">
+            <div class="col-md-4">
+              <div class="row">
+                <h4>Edit Car Information</h4>
+              </div>
+              <div class="row">
+                <div class="form-group">
+                  <label for="make">Make</label>
+                  <input type="text" class="form-control" id="make" name="make" placeholder="Make" required>
+                </div>
+                <div class="form-group">
+                  <label for="model">Model</label>
+                  <input type="text" class="form-control" id="model" name="model" placeholder="Model" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mt-1 pt-2">
+              <br>
+              <div class="form-group">
+                <label for="year">Year</label>
+                <input type="number" class="form-control" id="year" name="year" placeholder="Year" required>
+              </div>
+              <div class="form-group">
+                <label for="plate">Plate no</label>
+                <input type="text" class="form-control" id="plate" name="plateNo" placeholder="Plate No" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </div>  
+        </form> 
+      </div>
+    </div>
+
+    <%- include('layouts/footer.ejs'); -%>
+    <%- include('layouts/scripts.ejs'); -%>
+</body>
+</html>

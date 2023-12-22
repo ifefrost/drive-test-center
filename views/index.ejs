@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layouts/head.ejs'); -%>
+  <body>
+    <%- include('layouts/nav.ejs'); -%>
+
+    <!-- Page Header-->
+    <header
+      class="masthead"
+      style="background-image: url('https://source.unsplash.com/random/?road')"
+    >
+      <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="site-heading">
+              <h1>Dashboard</h1>
+              <p class="subheading">
+                Welcome<% if(loggedIn) { %>
+                <em><strong><%= userType %></strong> <%= username %></em><% }
+                %>, Book your Drive Test here
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="row">
+        <% if(loggedIn && userType == 'driver') { %>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Book Your G Test</h5>
+              <p class="card-text">Register and book your G test date.</p>
+              <a href="/g" class="btn btn-dark btn-block">G test</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Book Your G2 Test</h5>
+              <p class="card-text">Register and book your G2 test date.</p>
+              <a href="/g2" class="btn btn-dark btn-block">G2 test</a>
+            </div>
+          </div>
+        </div>
+        <% } %> <% if(loggedIn && userType=='admin') { %>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Appointments</h5>
+              <p class="card-text">Set appointment times.</p>
+              <a href="/appointments" class="btn btn-dark btn-block"
+                >Appointments</a
+              >
+            </div>
+          </div>
+        </div>
+        <% } %> <% if(!loggedIn) { %>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Login</h5>
+              <p class="card-text">Manage or complete your saved booking.</p>
+              <a href="/login" class="btn btn-dark btn-block">Login</a>
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+    </div>
+
+    <%- include('layouts/footer.ejs'); -%> <%- include('layouts/scripts.ejs');
+    -%>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('layouts/head.ejs'); -%>
+<body>
+    <%- include('layouts/nav.ejs'); -%>
+
+    
+    <div class="jumbotron mt-5 jumbotron-fluid bg-dark text-white text-center">
+        <div class="container">
+          <h1>Login</h1>
+          <p class="lead">Login and view your progress</p>
+        </div>
+    </div>
+    <div class="container px-4 px-lg-5">
+      <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-5 col-xl-5" id="login">
+          <h2>Login</h2>
+          <div><% if(error != null && error.length > 0){ %>
+            <div class="alert alert-danger"><%=error%></div>
+          <% } %>
+          <form method="POST" action="/loginuser">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="logusername" name="username" placeholder="Enter username">
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="logpassword" name="password" placeholder="Password">
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Remember me</label>
+              </div>
+              <button type="submit" class="btn btn-dark btn-block">Login</button>
+              <p class="text-center">Dont have an account? <a href="/register" id="signupbutton">Sign Up!</a></p>  
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <%- include('layouts/footer.ejs'); -%>
+    <%- include('layouts/scripts.ejs'); -%>
+</body>
+</html>
