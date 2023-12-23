@@ -6,6 +6,7 @@ const userModel = require('./models/userModel')
 const bodyParser = require('body-parser')
 const session = require('express-session');
 const flash = require('connect-flash');
+const dotenv = require('dotenv');
 
 const newTestController = require('./controllers/newTest');
 const newUserController = require('./controllers/newUser');
@@ -26,7 +27,9 @@ const driverAuthMiddleware = require('./middleware/driverAuthMiddleware');
 const adminAuthMiddleware = require('./middleware/adminAuthMiddleware');
 const userRedirectMiddleware = require('./middleware/userRedirectMiddleware');
 
-mongoose.connect('mongodb+srv://admin:s1mplePass@cluster0.zxiu4km.mongodb.net/?retryWrites=true&w=majority')
+dotenv.config();
+
+mongoose.connect(process.env.MONGO_URI)
 mongoose.connection.on('connected', ()=>{
     console.log('Connected to the database...');
 })
